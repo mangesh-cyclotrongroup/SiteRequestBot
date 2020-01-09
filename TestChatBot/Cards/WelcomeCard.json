@@ -1,0 +1,67 @@
+{
+  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+  "type": "AdaptiveCard",
+  "version": "1.0",
+  "body": [
+    {
+      "type": "Container",
+      "items": [
+
+        {
+          "type": "ColumnSet",
+          "columns": [
+            {
+              "type": "Column",
+              "width": "auto",
+              "items": [
+                {
+                  "type": "Image",
+                  "url": "https://www.internetandtechnologylaw.com/files/2019/06/iStock-872962368-chat-bots.jpg",
+                  "size": "small"
+
+                }
+              ]
+            },
+            {
+              "type": "Column",
+              "width": "stretch",
+              "items": [
+                {
+                  "type": "TextBlock",
+                  "text": "Welcome to TeamsHub Bot.!!! ",
+                  "weight": "bolder",
+                  "wrap": true,
+                  "size": "large"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "Container",
+      "items": [
+        {
+          "type": "TextBlock",
+          "text": "Get Started by selecting below option or type your own query.",
+          "wrap": true,
+          "size": "medium"
+
+        }
+      ]
+    }
+  ],
+  "actions": [
+    {
+      "type": "Action.Submit",
+      "title": "Site Request",
+      "data": { "Team": "Create site" }
+    },
+    {
+      "type": "Action.Submit",
+      "title": "Cancel",
+      "data": { "Cancel": "Cancel" }
+    }
+  ]
+}
