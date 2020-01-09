@@ -267,7 +267,7 @@ namespace SiteRequestBot.Dialogs
                         }
                         //_teamsa.Add((JsonConvert.DeserializeObject(u.DisplayName.ToString())), (JsonConvert.DeserializeObject<Microsoft.Graph.User>(u.Surname.ToString())));
                         list.Add(Tuple.Create(dname, sname));
-                        _teamsa.Add(dname + sname, sname);
+                        _teamsa.Add(dname, sname);
 
                     }
                 }
@@ -290,7 +290,7 @@ namespace SiteRequestBot.Dialogs
                         {"Personal" }
                     };
 
-                var choicesTeamOwners = _teamsa.Select(s => new AdaptiveChoice { Title = s.Value, Value = s.Value }).ToList();
+                var choicesTeamOwners = _teamsa.Select(s => new AdaptiveChoice { Title = s.Key, Value = s.Key }).ToList();
                 var choicesType = _teamsType.Select(s => new AdaptiveChoice { Title = s, Value = s }).ToList();
                 var choicesClassification = _teamsClassification.Select(s => new AdaptiveChoice { Title = s, Value = s }).ToList();
                 try
