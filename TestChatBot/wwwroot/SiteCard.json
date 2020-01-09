@@ -1,0 +1,141 @@
+{
+  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+  "type": "AdaptiveCard",
+  "version": "1.0",
+  "body": [
+    {
+      "type": "Container",
+      "items": [
+        {
+          "type": "TextBlock",
+          "text": "Create a Team",
+          "weight": "bolder",
+          "size": "medium"
+        },
+        {
+          "type": "TextBlock",
+          "text": "Team Display Name*",
+          "weight": "bolder",
+          "size": "small"
+        },
+        {
+          "type": "Input.Text",
+          "id": "idDisplayName",
+          "isMultiline": false,
+          "size": "small",
+          "placeholder": ""
+        },
+        {
+          "type": "TextBlock",
+          "text": "Team Description*",
+          "weight": "bolder",
+          "size": "small"
+        },
+        {
+          "type": "Input.Text",
+          "id": "idDescription",
+          "isMultiline": true,
+          "size": "small",
+          "placeholder": ""
+        },
+        {
+          "type": "TextBlock",
+          "text": "Team MailNickName*",
+          "weight": "bolder",
+          "size": "small"
+        },
+        {
+          "type": "Input.Text",
+          "id": "idTeamMailNickName",
+          "isMultiline": false,
+          "size": "small",
+          "placeholder": ""
+        },
+        {
+          "type": "TextBlock",
+          "text": "Team Owners Peoples Picker*",
+          "weight": "bolder",
+          "size": "small"
+        },
+        {
+          "type": "Input.Text",
+          "id": "idTeamOwnersPeoplesPicker",
+          "isMultiline": false,
+          "size": "small",
+          "placeholder": ""
+        },
+        {
+          "type": "TextBlock",
+          "text": "Type*",
+          "weight": "bolder",
+          "size": "small"
+        },
+        {
+          "type": "Input.ChoiceSet",
+          "id": "idType",
+          "style": "compact",
+          "value": "",
+          "choices": [
+            {
+              "title": "Public",
+              "value": "Public"
+            },
+            {
+              "title": "Private",
+              "value": "Private"
+            }
+
+          ]
+        },
+        {
+          "type": "TextBlock",
+          "text": "Classification*",
+          "weight": "bolder",
+          "size": "small"
+        },
+        {
+          "type": "Input.ChoiceSet",
+          "id": "idClassification",
+          "style": "compact",
+          "value": "",
+          "choices": [
+            {
+              "title": "Internal",
+              "value": "Internal"
+            },
+            {
+              "title": "External",
+              "value": "External"
+            },
+            {
+              "title": "Business",
+              "value": "Business"
+            },
+            {
+              "title": "Protected",
+              "value": "Protected"
+            },
+            {
+              "title": "Important",
+              "value": "Important"
+            },
+            {
+              "title": "Personal",
+              "value": "Personal"
+            }
+
+          ]
+        }
+
+      ]
+    }
+  ],
+  "actions": [
+    {
+      "type": "Action.Submit",
+      "title": "OK"
+
+    }
+  ]
+
+}
