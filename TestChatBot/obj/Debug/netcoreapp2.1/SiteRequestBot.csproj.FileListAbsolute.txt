@@ -1,4 +1,6 @@
 C:\Users\MangeshNikam\Documents\GitHub\SiteRequestBot\TestChatBot\bin\Debug\netcoreapp2.1\appsettings.Development.json
+C:\Users\MangeshNikam\Documents\GitHub\SiteRequestBot\TestChatBot\bin\Debug\netcoreapp2.1\Cards\SiteCard.json
+C:\Users\MangeshNikam\Documents\GitHub\SiteRequestBot\TestChatBot\bin\Debug\netcoreapp2.1\Cards\WelcomeCard.json
 C:\Users\MangeshNikam\Documents\GitHub\SiteRequestBot\TestChatBot\bin\Debug\netcoreapp2.1\DeploymentTemplates\new-rg-parameters.json
 C:\Users\MangeshNikam\Documents\GitHub\SiteRequestBot\TestChatBot\bin\Debug\netcoreapp2.1\DeploymentTemplates\preexisting-rg-parameters.json
 C:\Users\MangeshNikam\Documents\GitHub\SiteRequestBot\TestChatBot\bin\Debug\netcoreapp2.1\DeploymentTemplates\template-with-new-rg.json
@@ -17,3 +19,4 @@ C:\Users\MangeshNikam\Documents\GitHub\SiteRequestBot\TestChatBot\obj\Debug\netc
 C:\Users\MangeshNikam\Documents\GitHub\SiteRequestBot\TestChatBot\obj\Debug\netcoreapp2.1\SiteRequestBot.RazorTargetAssemblyInfo.cache
 C:\Users\MangeshNikam\Documents\GitHub\SiteRequestBot\TestChatBot\obj\Debug\netcoreapp2.1\SiteRequestBot.dll
 C:\Users\MangeshNikam\Documents\GitHub\SiteRequestBot\TestChatBot\obj\Debug\netcoreapp2.1\SiteRequestBot.pdb
+C:\Users\MangeshNikam\Documents\GitHub\SiteRequestBot\TestChatBot\obj\Debug\netcoreapp2.1\SiteRequestBot.csprojAssemblyReference.cache

@@ -13,7 +13,6 @@ using SiteRequestBot.Services;
 using AdaptiveCards;
 using System.IO;
 using Newtonsoft.Json;
-using TeamsHub.Web.Helpers;
 using SiteRequestBot.Helpers;
 
 namespace SiteRequestBot.Dialogs
@@ -49,18 +48,19 @@ namespace SiteRequestBot.Dialogs
         {
             var waterfallSteps = new WaterfallStep[]
             {
-                 PromptStepAsync,
-                LoginStepAsync,
-                CommandStepAsync,
+                // PromptStepAsync,
+                //LoginStepAsync,
+                //CommandStepAsync,
                 //ProcessStepAsync,
                  showAdaptiveCardAsync,
+
                 BugStepAsync
 
             };
 
             AddDialog(new WaterfallDialog($"{nameof(SiteRequestDialog)}.mainFlow", waterfallSteps));
             AddDialog(new ChoicePrompt($"{nameof(SiteRequestDialog)}.CreatewelcomeCard"));
-            AddDialog(new TextPrompt($"{nameof(SiteRequestDialog)}.ShowCard", AdaptorCardValidatorAsync));
+            AddDialog(new TextPrompt($"{nameof(SiteRequestDialog)}.ShowCard"));
             AddDialog(new TextPrompt($"{nameof(SiteRequestDialog)}.description"));
 
             InitialDialogId = $"{nameof(SiteRequestDialog)}.mainFlow";
@@ -77,7 +77,7 @@ namespace SiteRequestBot.Dialogs
                 //var card = new AdaptiveCard();
                 try
                 {
-                    var json = File.ReadAllText(@"C:\Users\MangeshNikam\source\repos\SiteRequestBot\SiteRequestBot\wwwroot\SiteCard.json");
+                    var json = File.ReadAllText(@"C:\Users\MangeshNikam\source\repos\SiteRequest\SiteRequest\wwwroot\SiteCard.json");
                     AdaptiveCardParseResult result = AdaptiveCard.FromJson(json);
                     AdaptiveCard card = result.Card;
 
@@ -151,8 +151,6 @@ namespace SiteRequestBot.Dialogs
         }
 
         #region Waterfalldialog
-        // [Obsolete]
-
         private async Task<DialogTurnResult> CreateTeamChoiceasync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
         {
 
@@ -165,17 +163,23 @@ namespace SiteRequestBot.Dialogs
         }
         private async Task<DialogTurnResult> PromptStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
         {
-
-            var InputMessage = stepContext.Context.Activity;
-            if (InputMessage.Text.ToString().ToLower().Contains("team"))
+            //When user type create site request
+            if ((stepContext.Context.Activity.Text != null) || (stepContext.Context.Activity.Value != null))
             {
+                if ((stepContext.Context.Activity.Text.ToString().ToLower().Contains("site")) || (stepContext.Context.Activity.Value.ToString().ToLower().Contains("site")))
+                {
 
-                return await stepContext.BeginDialogAsync(nameof(OAuthPrompt), null, cancellationToken);
+                    return await stepContext.BeginDialogAsync(nameof(OAuthPrompt), null, cancellationToken);
+                }
+                else
+
+                {
+                    return await stepContext.EndDialogAsync(cancellationToken: cancellationToken);
+                }
             }
             else
-
             {
-                return await stepContext.EndDialogAsync(cancellationToken: cancellationToken);
+                return await stepContext.BeginDialogAsync(nameof(OAuthPrompt), null, cancellationToken);
             }
         }
 
@@ -191,10 +195,16 @@ namespace SiteRequestBot.Dialogs
 
                 //return await stepContext.PromptAsync(nameof(TextPrompt), new PromptOptions { Prompt = MessageFactory.Text("Would you like to do? (type 'me', 'send <EMAIL>' or 'recent')") }, cancellationToken);
             }
+            else
 
-            //await stepContext.Context.SendActivityAsync(MessageFactory.Text("Login was not successful please try again."), cancellationToken);
-            return await stepContext.NextAsync();
-            //return await stepContext.EndDialogAsync();
+            {
+                await stepContext.Context.SendActivityAsync(MessageFactory.Text("Login was not successful please try again."), cancellationToken);
+                return await stepContext.EndDialogAsync();
+            }
+
+
+            //return await stepContext.NextAsync();
+
         }
 
         private async Task<DialogTurnResult> CommandStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
@@ -242,7 +252,7 @@ namespace SiteRequestBot.Dialogs
         [Obsolete]
         private async Task<DialogTurnResult> showAdaptiveCardAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
         {
-            if (stepContext.Result != null)
+            if ((stepContext.Context.Activity.Text != null) || (stepContext.Context.Activity.Value != null))
             {
                 // The token will be available in the Result property of the task.
                 var tokenResponse = stepContext.Result as TokenResponse;
@@ -257,14 +267,19 @@ namespace SiteRequestBot.Dialogs
                     {
                         string dname = u.DisplayName;
                         string sname = u.Surname;
-                        if (dname == null)
+                        try
                         {
-                            dname = "Test";
+
+                            if (dname == null)
+                            {
+                                dname = "Test";
+                            }
+                            if (sname == null)
+                            {
+                                sname = "Test";
+                            }
                         }
-                        if (sname == null)
-                        {
-                            sname = "Test";
-                        }
+                        catch (Exception e) { }
                         //_teamsa.Add((JsonConvert.DeserializeObject(u.DisplayName.ToString())), (JsonConvert.DeserializeObject<Microsoft.Graph.User>(u.Surname.ToString())));
                         list.Add(Tuple.Create(dname, sname));
                         _teamsa.Add(dname, sname);
@@ -290,7 +305,7 @@ namespace SiteRequestBot.Dialogs
                         {"Personal" }
                     };
 
-                var choicesTeamOwners = _teamsa.Select(s => new AdaptiveChoice { Title = s.Key, Value = s.Key }).ToList();
+                //var choicesTeamOwners = _teamsa.Select(s => new AdaptiveChoice { Title = s.Key, Value = s.Key }).ToList();
                 var choicesType = _teamsType.Select(s => new AdaptiveChoice { Title = s, Value = s }).ToList();
                 var choicesClassification = _teamsClassification.Select(s => new AdaptiveChoice { Title = s, Value = s }).ToList();
                 try
@@ -313,7 +328,7 @@ namespace SiteRequestBot.Dialogs
                             new AdaptiveTextBlock("Team Owners"),
                             new AdaptiveChoiceSetInput
                             {
-                                Choices = choicesTeamOwners,
+                                Choices = choicesType,
                                 Id = "TeamOwners",
                                 Style = AdaptiveChoiceInputStyle.Compact,
                                 IsMultiSelect = false
@@ -348,7 +363,7 @@ namespace SiteRequestBot.Dialogs
                     return await stepContext.PromptAsync($"{ nameof(SiteRequestDialog)}.ShowCard",
      new PromptOptions
      {
-         Choices = ChoiceFactory.ToChoices(_teamsa.Select(pair => pair.Value).ToList()),
+         // Choices = ChoiceFactory.ToChoices(_teamsa.Select(pair => pair.Value).ToList()),
          Prompt = (Activity)MessageFactory.Attachment(new Attachment
          {
              ContentType = AdaptiveCard.ContentType,
@@ -359,12 +374,13 @@ namespace SiteRequestBot.Dialogs
                 }
                 catch (Exception e)
                 { e.ToString(); }
+                return await stepContext.NextAsync();
             }
             else
             {
-
+                return await stepContext.EndDialogAsync();
             }
-            return await stepContext.NextAsync();
+
         }
 
         private async Task<DialogTurnResult> BugStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)

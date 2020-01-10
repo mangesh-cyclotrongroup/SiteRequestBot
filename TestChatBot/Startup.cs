@@ -43,9 +43,9 @@ namespace SiteRequestBot
             // Create the Conversation state. (Used by the Dialog system itself.)
             services.AddSingleton<ConversationState>();
 
-            services.AddSingleton<SiteRequestDialog>();
+            services.AddSingleton<DialogAndWelcomeBot>();
             // Create the bot as a transient. In this case the ASP Controller is expecting an IBot.
-            services.AddTransient<IBot, DialogAndWelcomeBot<SiteRequestDialog>>();
+            services.AddTransient<IBot, DialogAndWelcomeBot>();
         }
 
         
